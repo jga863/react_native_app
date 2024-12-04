@@ -8,10 +8,10 @@ export default function App(){
 
 return (
     <View className ="flex-1 items-center justify-center bg-white">
-        <Text className = "text-3x1">Aora!</Text>
+        <Text className = "text-3xl">Aora!</Text>
         <Text>Open up App.js to start working on your app! yo yo INDEX</Text>
         <StatusBar style="auto" />
-        <Link href="/profile">Go to profile</Link>
+        <Link href="/profile" style={{color:'blue'}}>Go to Profile</Link>
     </View>
     );
 };
