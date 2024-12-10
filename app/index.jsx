@@ -13,7 +13,7 @@ return (
         <Text className = "text-3xl font-pblack">Aora!</Text>
         <Text>Open up App.js to start working on your app! yo yo INDEX</Text>
         <StatusBar style="auto" />
-        <Link href="/profile" style={{color:'blue'}}>Go to Profile</Link>
+        <Link href="/home" style={{color:'blue'}}>Go to Home</Link>
     </View>
     );
 };
