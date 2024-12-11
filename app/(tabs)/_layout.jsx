@@ -6,6 +6,7 @@ import { icons } from '../../constants';
 const TabIcon = ({icon,color,name,focused}) => {
   return(
     <View className=" items-center justify-center gap-2"  style={{marginTop: 10}} >
+    
       <Image 
         source = {icon}
 
