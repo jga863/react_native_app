@@ -7,6 +7,7 @@ import { images } from '../../constants'
 import FromField from '../../components/FromField'
 
 import CustomButton from '../../components/CustomButton'
+import { createUser } from '../lib/appwrite'
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -18,7 +19,7 @@ const SignUp = () => {
   const [isSubmitting, setisSubmitting] = useState(false)
 
   const submit =() => {
-
+    createUser();
   }
 
   return (
