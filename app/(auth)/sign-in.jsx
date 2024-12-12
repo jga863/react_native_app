@@ -1,12 +1,13 @@
-import { ScrollView, View, Text, Image } from 'react-native'
+import { ScrollView, View, Text, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 
 import { images } from '../../constants'
 import FromField from '../../components/FromField'
 
 import CustomButton from '../../components/CustomButton'
+import { getCurrentUser, signIn } from '../lib/appwrite'
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -16,7 +17,33 @@ const SignIn = () => {
 
   const [isSubmitting, setisSubmitting] = useState(false)
 
-  const submit =() => {
+  const submit = async () => {
+    if(form.email === "" || form.password === ""){
+      Alert.alert('Error','Please fill in all the fields');
+      return;
+    }
+
+    console.log('Form Data:', form); // Log form values before submission
+    setisSubmitting(true);
+
+   try {
+    const session = await signIn(form.email, form.password)
+    console.log('User created successfully:', session);
+    
+    const result = await getCurrentUser();
+    setUser(result);
+    setIsLogged(true);
+
+    Alert.alert("Success", "User signed in successfully");
+
+    router.replace('/home')
+
+   } catch (error) {
+      Alert.alert('Error', error.message);
+      console.error('Sign-up error:', error);
+   } finally {
+      setisSubmitting(false)
+   }
 
   }
 
