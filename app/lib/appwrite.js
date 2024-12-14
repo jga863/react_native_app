@@ -10,6 +10,16 @@ export const config = {
     storageId: '675a2f8a000b094912f6'
 }
 
+// const {
+//     endpoint,
+//     platform,
+//     projectId,
+//     databaseId,
+//     userCollectionId,
+//     videoCollectionId,
+//     storageId,
+// } = config;
+
 // Init your React Native SDK
 const client = new Client();
 
@@ -103,6 +113,37 @@ export const getCurrentUser = async () => {
       throw error;
     }
   };
+
+export const getAllPosts = async () => {
+    try {
+        const postsResponse = await databases.listDocuments(
+            config.databaseId,
+            config.videoCollectionId
+        );
+
+        // Ensure every post has a unique key for rendering
+        const posts = postsResponse.documents.map((post) => ({
+            ...post,
+            key: post.$id || ID.unique(), // Use $id from Appwrite or generate a fallback unique key
+        }));
+
+        return posts;
+
+      } catch (error) {
+        throw new Error(error);
+      }
+}
+
+  const appwrite = {
+    client,
+    account,
+    avatars,
+    databases,
+    config,
+  };
+  
+  export default appwrite;
+  
 
   //modify here up!
   
