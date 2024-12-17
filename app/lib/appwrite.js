@@ -119,7 +119,8 @@ export const getAllPosts = async () => {
     try {
         const postsResponse = await databases.listDocuments(
             config.databaseId,
-            config.videoCollectionId
+            config.videoCollectionId,
+            [Query.orderDesc('$createdAt')]
         );
 
         // Ensure every post has a unique key for rendering
@@ -244,7 +245,13 @@ export const getLastestPosts = async () => {
     if(!file) return;
 
     const {mimeType, ...rest} = file;
-    const asset = { type: mimeType, ...rest };
+    const asset = { 
+        name: file.fileName,
+        type: file.mimeType,
+        size: file.fileSize,
+        uri: file.uri,
+        createdAt: Date.now()
+     };
     try {
         const uploadedFile = await storage.createFile(
             config.storageId,

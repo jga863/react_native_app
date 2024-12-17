@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import FormField from '../../components/FromField'
 import { Video, ResizeMode } from 'expo-av'
-import * as DocumentPicker from 'expo-document-picker'
+import * as ImagePicker from 'expo-image-picker'
 import { icons } from '../../constants'
 
 import CustomButton from '../../components/CustomButton'
@@ -25,12 +25,13 @@ const Create = () => {
     })
 
     const openPicker = async (selectType) => {
-      const result = await DocumentPicker.getDocumentAsync
-      ({
-        type: selectType === 'image'
-          ? ['image/png', ' image/jpg','image/jpeg']
-          : ['video/mp4', 'video/gif']
-      })
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: selectType === 'image' 
+      ? ImagePicker.MediaTypeOptions.Images: ImagePicker.MediaTypeOptions.Videos,
+
+        aspect: [4, 3],
+        quality: 1,
+      });
 
       if(!result.canceled){
         if(selectType === 'image') {
