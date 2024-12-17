@@ -41,11 +41,6 @@ const Create = () => {
           setform({...form, video:result.assets[0]})
         }
       } 
-      // else {
-      //   setTimeout(()=>{
-      //    Alert.alert('Document picked', JSON.stringify (result,null,2) ) 
-      //   },100)
-      //}
 
 
     }
