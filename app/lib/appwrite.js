@@ -179,6 +179,37 @@ export const getLastestPosts = async () => {
 
   };
 
+  export const getUserPosts = async (userId) => {
+    try {
+        const postsResponse = await databases.listDocuments(
+            config.databaseId,
+            config.videoCollectionId,
+            [Query.equal('creator', userId)]
+        );
+
+        // Ensure every post has a unique key for rendering
+        const posts = postsResponse.documents.map((post) => ({
+            ...post,
+            key: post.$id || ID.unique(), // Use $id from Appwrite or generate a fallback unique key
+        }));
+
+        return posts;
+
+      } catch (error) {
+        throw new Error(error);
+      }
+
+  };
+
+  export const signOut = async () => {
+    try{
+        const session = await account.deleteSession("current");
+        return session;
+    } catch (error) {
+        throw new Error(Error)
+    }
+  }
+
   const appwrite = {
     client,
     account,

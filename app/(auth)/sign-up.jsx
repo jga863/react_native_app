@@ -9,7 +9,11 @@ import FromField from '../../components/FromField'
 import CustomButton from '../../components/CustomButton'
 import { createUser } from '../lib/appwrite'
 
+import { useGlobalContext } from '../../context/GlobalProvider';
+
 const SignUp = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
+
   const [form, setForm] = useState({
     username:'',
     email: '',

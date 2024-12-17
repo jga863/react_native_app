@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, Children } from "react";
+import React, { createContext, useContext, useState, useEffect, Children } from "react";
 import { getCurrentUser } from "../app/lib/appwrite";
 
 
@@ -32,6 +32,8 @@ const GlobalProvider = ({ children }) => {
         })
 
     },[]);
+
+    console.log("GlobalProvider Values:", { isLoggedIn, user });
 
     return (
         <GlobalContext.Provider
