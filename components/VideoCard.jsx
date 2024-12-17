@@ -8,7 +8,7 @@ const VideoCard = ({video: { title, thumbnail, video, creator : {username, avata
     const [play, setPlay] = useState(false);
     
     return (
-        <View className="flex-col items-center px-4 mb-14">
+        <View className="flex-col items-center px-4 mb-10">
             
             <View style={{ flexDirection: 'row', gap: 3, alignItems: 'flex-start' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -49,9 +49,24 @@ const VideoCard = ({video: { title, thumbnail, video, creator : {username, avata
             </View>
             
                     {play ? (
-                        <Text className="text-white">
-                            Playing
-                        </Text>
+                         <Video
+                                  source={ {uri: "https://www.w3schools.com/html/mov_bbb.mp4"}}
+                                  style={{
+                                    width: '380',   // Ensure width is set
+                                    height: '218',  // Ensure height is set
+                                    borderRadius: 35, // Optional for styling
+                                    backgroundColor: "black", // Ensure visibility
+                                  }}
+                                  resizeMode= "cover"
+                                  useNativeControls
+                                  shouldPlay
+                                  onPlaybackStatusUpdate={(status)=>{
+                                    console.log('Playback status:', status);
+                                   if(status.didJustFinish) {
+                                    setPlay(false);
+                                   }
+                                  }}
+                                />
                     ):(
                         <TouchableOpacity 
                         activeOpacity={0.7}
@@ -61,12 +76,12 @@ const VideoCard = ({video: { title, thumbnail, video, creator : {username, avata
                            
                             <Image
                                 source={{uri: thumbnail}}
-                                style={{ width: '100%', height: '100%', borderRadius: 16, marginTop: 12 }}
+                                style={{ width: '100%', height: '100%', borderRadius: 16, marginTop: 0 }}
                                 resizeMode="cover"
                             />
                             <Image
                                 source={icons.play}
-                                style={{ width: 380, height: 48, position: 'absolute', marginTop: 80 }}
+                                style={{ width: 380, height: 48, position: 'absolute', marginTop: 70 }}
                                 resizeMode="contain"
 
                             />
