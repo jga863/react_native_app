@@ -156,6 +156,29 @@ export const getLastestPosts = async () => {
 
   };
 
+
+  export const searchPosts = async (query) => {
+    try {
+        const postsResponse = await databases.listDocuments(
+            config.databaseId,
+            config.videoCollectionId,
+            [Query.search('title', query)]
+        );
+
+        // Ensure every post has a unique key for rendering
+        const posts = postsResponse.documents.map((post) => ({
+            ...post,
+            key: post.$id || ID.unique(), // Use $id from Appwrite or generate a fallback unique key
+        }));
+
+        return posts;
+
+      } catch (error) {
+        throw new Error(error);
+      }
+
+  };
+
   const appwrite = {
     client,
     account,
